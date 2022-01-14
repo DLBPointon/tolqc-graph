@@ -1,0 +1,108 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>TolQC PacBio Stat-Graphs</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="js/pb_yield_time.js"></script>
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+</head>
+
+<body>
+  <script>
+    window.onload=function(){
+      dategrapher()
+  }
+  </script>
+  <p>TolQC PacBio Stat-Graphs</p>
+  <p> -- Takes a hot second to load
+          Change JS library to something more suited to large datasets?
+          Could just be because of filtering going on in the back -- </p>
+  <p> -- Should be a case of a drop in function and define where to load for the graph to gen-- </p>
+
+  <div id="dategraphLoc"></div>
+
+  <div style="height: 25px;"></div>
+                                  <div>
+                                      <h6>All Datapoints or Totalled Datapoints</h6>
+                                  </div>
+                                  <label for="tolgraph1T"></label>
+                                  <select id="tolgraph1T" onchange="dategrapher()">
+                                      <option value="TRUE" selected='selected'>
+                                        All
+                                      </option>
+                                      <option value="FALSE" selected='selected'>
+                                        TOTALLED
+                                      </option>
+                                  </select>
+
+                                  <div>
+                                      <h6>Y</h6>
+                                  </div>
+                                  <label for="tolgraph1Y"></label>
+                                  <select id="tolgraph1Y" onchange="dategrapher()">
+                                      <option value="sum" selected='selected'>
+                                          Base Pairs collected
+                                      </option>
+                                      <option value="N50">
+                                          N50
+                                      </option>
+                                      <option value="n">
+                                          N Percentage
+                                      </option>
+                                      <option value="a">
+                                          AT percentage
+                                      </option>
+                                  </select>
+
+                                  <div>
+                                      <h6>Colour by</h6>
+                                  </div>
+                                  <label for="tolgraph1C"></label>
+                                  <select id="tolgraph1C" onchange="dategrapher()">
+                                      <option value="group" selected='selected'>
+                                          Project and Clade
+                                      </option>
+                                      <option value="pipeline">
+                                          Pipeline (CLR/CCS)
+                                      </option>
+                                      <option value="model">
+                                          Machine Model
+                                      </option>
+                                      <option value="well_label">
+                                          Well Label
+                                      </option>
+                                  </select>
+
+                                  <div>
+                                      <h6>Label by</h6>
+                                  </div>
+                                  <label for="tolgraph1L"></label>
+                                  <select id="tolgraph1L" onchange="dategrapher()">
+                                      <option value="species" selected='selected'>
+                                          Species Name
+                                      </option>
+                                      <option value="specimen">
+                                          TolID
+                                      </option>
+                                  </select>
+
+</body>
+
+</html>
