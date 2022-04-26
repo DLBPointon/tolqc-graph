@@ -112,15 +112,18 @@ function dategrapher() {
                       {step: 'all'}
                   ]},
               rangeslider: {
+                borderwidth: 2,
+                bgcolor: "#d3d3d3"
               },
               type: 'date',
+              // +/- 4 is purely for aesthetics
               range: [new Date(minDate.setDate(minDate.getDate() - 4)),
                       new Date(maxDate.setDate(maxDate.getDate() + 4))],
               tickwidth: 1
           },
 
           yaxis: {
-              autorange: true
+              autorange: true,
           },
           width: elmntdg,
       };
