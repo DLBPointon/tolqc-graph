@@ -47,10 +47,11 @@ function dategrapher() {
 
             } else {
               var indx = label.indexOf(item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
-
               let summed = y[indx] + item['sum']
               // Below takes index, deletes item and replaces it with the summed variable.
               y.splice(indx, 1, summed)
+
+
             }
           }
               // Per cell = total well per run - coloured by well | should be around 30GB per well
@@ -82,6 +83,7 @@ function dategrapher() {
 
       var layout = {
           title: 'Time Series of with Rangeslider',
+          showlegend: true,
           xaxis: {
               title:'Date of Ticket creation',
               rangeselector: { buttons: [
