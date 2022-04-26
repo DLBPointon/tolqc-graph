@@ -38,19 +38,19 @@ function dategrapher() {
             // More efficient to make a JS Object but there are more changes coming.
 
             // Below creates a unique "key" to sort data
-            if (!label.includes(item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])) {
+            if (!label.includes(item[four] + ':' + item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])) {
               // Debugging - console.log(item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
-              label.push(item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
+              label.push(item[four] + ':' + item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
               x.push(new Date(item['date']))
               y.push(item[two])
               c.push(item[three])
 
+
             } else {
-              var indx = label.indexOf(item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
-              let summed = y[indx] + item['sum']
+              var indx = label.indexOf(item[four] + ':' + item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
+              var summed = y[indx] + item['sum']
               // Below takes index, deletes item and replaces it with the summed variable.
               y.splice(indx, 1, summed)
-
 
             }
           }
