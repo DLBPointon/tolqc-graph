@@ -38,46 +38,31 @@ function dategrapher() {
             // More efficient to make a JS Object but there are more changes coming.
 
             // Below creates a unique "key" to sort data
-            if (!label.includes(item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])) {
-              console.log(item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
-              label.push(item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
-              x.push(item['date'])
-              y.push(item['sum'])
-              if (item['specimen'] === 'mMelMel3'){
-                c.push('XXX')
-              } else {
-                c.push(item['well_label'])
-              }
+            if (!label.includes(item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])) {
+              // Debugging - console.log(item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
+              label.push(item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
+              x.push(new Date(item['date']))
+              y.push(item[two])
+              c.push(item[three])
 
-              // For debugging
-              //if (item['well_label'] + ' In Run: ' + item['run'] === 'C01 In Run: 83500') {
-              //  console.log('First -- '+ item['sum'])
-              //}
             } else {
-              var indx = label.indexOf(item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
-              //if (item['well_label'] + ' In Run: ' + item['run'] === 'C01 In Run: 83500') {
-              //  console.log('Old ' + y[indexxer])
-              //  console.log("new " +item['sum'])
-              //  var sumed = y[indexxer] + item['sum']
-              //  console.log('Sum? ' + sumed)
-              //}
+              var indx = label.indexOf(item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
+
               let summed = y[indx] + item['sum']
               // Below takes index, deletes item and replaces it with the summed variable.
               y.splice(indx, 1, summed)
-              // For debugging: set the end of the condition to your search term to check the number
-              // of results and there sum
-              //if (item['well_label'] + ' In Run: ' + item['run'] === 'C01 In Run: 83500') {
-              //  console.log('Another reading: ' + item['sum'])
-              //  console.log('Summed: ' + y[indexxer])
-              //  console.log(y[indexxer])
-              //}
             }
           }
               // Per cell = total well per run - coloured by well | should be around 30GB per well
         })
       }
-        console.log(x.length) // dates
-        console.log(y.length) // data points
+
+      var maxDate=new Date(Math.max.apply(null,x));
+      var minDate=new Date(Math.min.apply(null,x));
+
+      console.log("Colour array:  " + c.length)
+      console.log("X array:       " + x.length)
+      console.log("Y array:       " + y.length) // data points
 
       var trace1 = {
           type: 'scatter',
@@ -99,7 +84,6 @@ function dategrapher() {
           title: 'Time Series of with Rangeslider',
           xaxis: {
               title:'Date of Ticket creation',
-              autorange: true,
               rangeselector: { buttons: [
                       {
                           count: 1,
@@ -128,14 +112,17 @@ function dategrapher() {
                       {step: 'all'}
                   ]},
               rangeslider: {
-                  autorange: true
               },
-              type: 'date'
+              type: 'date',
+              range: [new Date(minDate.setDate(minDate.getDate() - 4)),
+                      new Date(maxDate.setDate(maxDate.getDate() + 4))],
+              tickwidth: 1
           },
+
           yaxis: {
               autorange: true
           },
-          width: elmntdg
+          width: elmntdg,
       };
 
       var config = {responsive: true, displayModeBar: true}
