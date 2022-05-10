@@ -115,8 +115,8 @@ function species_sunburst() {
     'C': 'Insects - NC', // Durbin Non-Standard
   }
 
-  // Further Durbin Projects include 'mm15'
 
+  // Commented out here are the relations for Prokaryota, Bacteria and Archae
   var label_data = ["Eukaryota", //"Prokaryota",
                     "Amphibia", "Bird", "Non-vascular plants", "Insects", "Dicotyledons", "Echinoderms",
                     "Fish", "Fungi", "Platyhelminth", "Jellyfish and Cnidaria", "Other Chordates",
