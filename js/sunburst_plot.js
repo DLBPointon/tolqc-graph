@@ -156,7 +156,8 @@ function species_sunburst() {
           solo_list.push(item["species"].split(" ")[0] + " sp.")
           label_data.push(item["species"].split(" ")[0] + " sp.")
           parent_data.push('Lepidoptera')
-          console.log(item["species"].split(" ")[0] + " sp.")
+          // Check for Durbin projects
+          //console.log(item["species"].split(" ")[0] + " sp.")
         } else {
         solo_list.push(item["species"].split(" ")[0] + " sp.")
         parent_data.push(dl_prefix_dict[item["specimen"].match('([a-z]*[0-9]*)')[0]])
