@@ -1,17 +1,20 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
   <title>TolQC PacBio Stat-Graphs</title>
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
   <link rel="apple-touch-icon" href="icon.png">
   <!-- Place favicon.ico in the root directory -->
 
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+  <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+  <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
 
   <meta name="theme-color" content="#fafafa">
 
@@ -19,6 +22,7 @@
   <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
   <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script src="js/pb_yield_time.js"></script>
+  <script src="js/sunburst_plot.js"></script>
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
@@ -27,85 +31,94 @@
 <body>
   <script>
     window.onload=function(){
-      dategrapher()
+      dategrapher();
+      species_sunburst()
   }
   </script>
-  <p>TolQC PacBio Stat-Graphs</p>
+
+<div class="card-body">
+  <div class="card-header"><h1>TolQC PacBio Yield Graphs </h1></div>
+  <a class="nav-link" href="https://github.com/DLBPointon/tolqc-graph/issues"><i class="fas fa-greater-than"></i><span> GitHub Issue Page & Feature Tracking</span></a></li>
+
+
   <div id="dategraphLoc"></div>
 
-  <div style="height: 25px;"></div>
-  <div>
-    <h4>All Datapoints or Totalled Datapoints</h4>
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h6 class="text-primary font-weight-bold m-0"> Data selector </h6>
     <label for="tolgraph1T"></label>
     <select id="tolgraph1T" onchange="dategrapher()">
-        <option value="TRUE" selected='selected'>
-          All
-        </option>
-        <option value="FALSE" selected='selected'>
-          TOTALLED
-        </option>
+      <option value="TRUE">
+        Per Tag
+      </option>
+      <option value="FALSE" selected='selected'>
+        Per SMRT cell
+      </option>
     </select>
   </div>
-  <div> ------ </div>
 
-
-  <div>
-    <h4>Y Value</h4>
-    <h6>In TOTALLED Neither N or AT percentage will work</h6>
-    <label for="tolgraph1Y"></label>
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h6 class="text-primary font-weight-bold m-0"> Y Value</h6>
+  <label for="tolgraph1Y"></label>
     <select id="tolgraph1Y" onchange="dategrapher()">
-        <option value="sum" selected='selected'>
-            Base Pairs collected
-        </option>
-        <option value="N50">
-            N50
-        </option>
-        <option value="n">
-            N Percentage
-        </option>
-        <option value="a">
-            AT percentage
-        </option>
+      <option value="sum" selected='selected'>
+          Base Pairs collected
+      </option>
+      <option value="N50">
+          N50
+      </option>
+      <option value="n">
+          N Percentage
+      </option>
+      <option value="a">
+          AT percentage
+      </option>
     </select>
   </div>
-  <div> ------ </div>
 
-  <div>
-    <h4>Colour by</h4>
-    <label for="tolgraph1C"></label>
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h6 class="text-primary font-weight-bold m-0"> Colour by </h6>
+  <label for="tolgraph1C"></label>
     <select id="tolgraph1C" onchange="dategrapher()">
-        <option value="group" selected='selected'>
-            Project and Clade
-        </option>
-        <option value="pipeline">
-            Pipeline (CLR/CCS)
-        </option>
-        <option value="model">
-            Machine Model
-        </option>
-        <option value="well_label">
-            Well Label
-        </option>
+      <option value="Clade" selected='selected'>
+          Clade
+      </option>
+      <option value="pipeline">
+        Pipeline (CLR/CCS)
+      </option>
+      <option value="model">
+          Machine Model
+      </option>
+      <option value="instrument">
+          Machine Name
+      </option>
     </select>
   </div>
-  <div> ------ </div>
 
-  <div>
-    <h4>Label by</h4>
-    </div>
-    <label for="tolgraph1L"></label>
-    <select id="tolgraph1L" onchange="dategrapher()">
-        <option value="species">
-            Species Name
-        </option>
-        <option value="specimen" selected='selected'>
-            TolID
-        </option>
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h6 class="text-primary font-weight-bold m-0"> Label with </h6>
+  <label for="tolgraph1L"></label>
+  <select id="tolgraph1L" onchange="dategrapher()">
+      <option value="species">
+          Species Name
+      </option>
+      <option value="specimen" selected='selected'>
+          TolID
+      </option>
     </select>
   </div>
-  <div> ------ </div>
+</div>
+
+<div class="card-body">
+  <div class="card-header"><h1>TolQC - Species Hierarchy Sunburst Plot </h1></div>
+
+  <h4 class="text-primary font-weight-bold m-0"> Placeholder plot </h6>
+
+  <div style="height: 800px;" id="species_sunburst_plot"></div>
+
+
+</div>
+
 
 
 </body>
-
 </html>
