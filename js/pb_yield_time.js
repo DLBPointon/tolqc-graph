@@ -1,6 +1,39 @@
-TESTER = document.getElementById('dategraphLoc');
+var TESTER = document.getElementById('dategraphLoc');
+
+const master_dict = {
+'a': 'Amphibia',
+'b': 'Bird',
+'c': 'Non-vascular plants',
+'C': 'Insects', // To Account for Durbin Project Code
+'d': 'Dicotyledons',
+'e': 'Echinoderms',
+'f': 'Fish',
+'g': 'Fungi',
+'h': 'Platyhelminths',
+'i': 'Insects',
+'j': 'Jellyfish and Cnidaria',
+'k': 'Other Chordates',
+'l': 'Monocotyledons',
+'m': 'Mammal',
+'n': 'Nematodes',
+'o': 'Sponges',
+'p': 'Protists',
+'q': 'Other Arthropods',
+'r': 'Reptile',
+'s': 'Shark',
+'t': 'Other Animal Phyla',
+'u': 'Algae',
+'v': 'Other Vascular Plants',
+'w': 'Annelids',
+'x': 'Molluscs',
+'y': 'Bacteria',
+'z': 'Archae'
+}
+
 
 function dategrapher() {
+    var TESTER = document.getElementById('dategraphLoc');
+
 
     var alltot = document.getElementById('tolgraph1T');
     alltot = alltot.options[alltot.selectedIndex].value
@@ -12,7 +45,6 @@ function dategrapher() {
     four = four.options[four.selectedIndex].value
 
     $.getJSON("data.json", function(data) {
-      //console.log(data)
       var x = []
       var y = []
       var label = []
@@ -33,28 +65,29 @@ function dategrapher() {
         })
       } else if (alltot === 'FALSE'){
         data.forEach((item) => {
+          //console.log(item["specimen"].split("")[0]);
+
           if (item['pipeline'] === 'PacBio - HiFi') {
             // Makes three synced arrays
             // More efficient to make a JS Object but there are more changes coming.
 
             // Below creates a unique "key" to sort data
             if (!label.includes(item[four] + ':' + item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])) {
-              // Debugging - console.log(item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
               label.push(item[four] + ':' + item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
               x.push(new Date(item['date']))
               y.push(item[two])
-              c.push(item[three])
-
-
+              if (three === "Clade") {
+                c.push(master_dict[item["specimen"].split("")[0]])
+              } else {
+                c.push(item[three])
+              }
             } else {
               var indx = label.indexOf(item[four] + ':' + item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
               var summed = y[indx] + item['sum']
               // Below takes index, deletes item and replaces it with the summed variable.
               y.splice(indx, 1, summed)
-
             }
           }
-              // Per cell = total well per run - coloured by well | should be around 30GB per well
         })
       }
 
@@ -82,10 +115,10 @@ function dategrapher() {
       var elmntdg = document.getElementById("dategraphLoc").clientWidth - 30
 
       var layout = {
-          title: 'Time Series of with Rangeslider',
+          title: 'Time Series for Pacbio Yields',
           showlegend: true,
           xaxis: {
-              title:'Date of Ticket creation',
+              title:'Run Date',
               rangeselector: { buttons: [
                       {
                           count: 1,
@@ -132,7 +165,5 @@ function dategrapher() {
 
       var config = {responsive: true, displayModeBar: true}
       Plotly.newPlot('dategraphLoc', datas, layout, config);
-      });
-
-
-}
+    })
+  }
