@@ -36,7 +36,6 @@ function species_sunburst_2() {
     // set the container id
     chart.container("species_sunburst_plot_2");
     chart.sort('desc')
-    chart.level(4).enabled(false)
     // initiate drawing the chart
     chart.draw();
   })
