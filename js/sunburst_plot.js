@@ -2,36 +2,6 @@ function species_sunburst() {
 
   var sb_plot = document.getElementById('species_sunburst_plot');
 
-  const master_dict_2 = {
-    'a': 'Amphibia',
-    'b': 'Bird',
-    'c': 'Non-vascular plants',
-    'C': 'Insects', // To Account for Durbin Project Code
-    'd': 'Dicotyledons',
-    'e': 'Echinoderms',
-    'f': 'Fish',
-    'g': 'Fungi',
-    'h': 'Platyhelminth',
-    'i': 'Insects',
-    'j': 'Jellyfish and Cnidaria',
-    'k': 'Other Chordates',
-    'l': 'Monocotyledon',
-    'm': 'Mammal',
-    'n': 'Nematodes',
-    'o': 'Sponges',
-    'p': 'Protists',
-    'q': 'Other Arthropods',
-    'r': 'Reptile',
-    's': 'Shark',
-    't': 'Other Animal Phyla',
-    'u': 'Algae',
-    'v': 'Other Vascular Plants',
-    'w': 'Annelids',
-    'x': 'Molluscs',
-    'y': 'Bacteria',
-    'z': 'Archae'
-    }
-
   // INITIAL DATA STRUCTURE AS NOT SPECIFIED IN data_main.json
   var label_data = ["Eukaryota"]
 
