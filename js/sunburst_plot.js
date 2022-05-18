@@ -82,33 +82,26 @@ function species_sunburst() {
       }
     }
 
-    function countOccurrences(arr) {
-      return arr.reduce(function(a, b){
-        a[b] = a[b] + 1 || 1
-        return a;
-      }, {});
-    }
-
-    const counter = countOccurrences(test)
-    //console.log(counter)
-
-    label_data.forEach( x => {
-      if (counter[x]) {
-        values.push(counter[x])
+    // VALUES PER GENUS = 1
+    test.forEach( x => {
+      if (x.includes('sp.')) {
+        values.push(1)
       } else {
         values.push(0)
       }
     })
+
     //console.log(label_data)
     //console.log(values)
     // DATA ORDER {DOMAIN, PHYLUM, ORDER, FAMILY, GENUS}
+    // COUNT SHOULD AUTOMATICALLY ASSIGN 1 TO EACH LEAF
+    // AND SUM UP THE PLOT
     var datas = [{
         maxdepth: 2,
         "type": "sunburst",
         "labels": label_data,
         "parents": parent_data,
-        "values": values,
-        "branchvalues":"remainder",
+        count:"leaves",
         "leaf": {"opacity": 0.4},
         textposition: 'inside',
         insidetextorientation: 'radial'
