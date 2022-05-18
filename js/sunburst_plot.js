@@ -37,10 +37,6 @@ function species_sunburst() {
 
   var parent_data = [""]
 
-  var counts = []
-
-  var test = []
-
   var values = []
 
   // SPECIFY DATA.JSON FOR INPUT HERE
@@ -58,32 +54,23 @@ function species_sunburst() {
       if (!label_data.includes(data[i].family)) {
         label_data.push(data[i].family)
         parent_data.push(data[i].order)
-        //if (data[i].order === 'Araneae') {
-        //  test.push(data[i].order)
-        //}
       };
       if (!label_data.includes(data[i].genus + ' sp.')) {
         label_data.push(data[i].genus + ' sp.')
-        //if (data[i].family === 'Pisauridae') {
-        //  test.push(data[i].family)
-        //}
         parent_data.push(data[i].family)
       };
     };
+
+    // GET UNIQUE LIST OF GENUS + "sp."
     var unique = []
     for (var i = 0; i < data.length; i++) {
       if (!unique.includes(data[i].genus + ' sp.')) {
-        test.push("Eukaryota")
-        test.push(data[i].phylum)
-        test.push(data[i].order)
-        test.push(data[i].family)
-        test.push(data[i].genus + ' sp.')
         unique.push(data[i].genus + ' sp.')
       }
     }
 
     // VALUES PER GENUS = 1
-    test.forEach( x => {
+    unique.forEach( x => {
       if (x.includes('sp.')) {
         values.push(1)
       } else {
@@ -95,12 +82,14 @@ function species_sunburst() {
     //console.log(values)
     // DATA ORDER {DOMAIN, PHYLUM, ORDER, FAMILY, GENUS}
     // COUNT SHOULD AUTOMATICALLY ASSIGN 1 TO EACH LEAF
-    // AND SUM UP THE PLOT
+    // AND SUM UP THE PLOT IF NO VALUE LIST or branchvalue ASSIGNED
     var datas = [{
         maxdepth: 2,
         "type": "sunburst",
         "labels": label_data,
         "parents": parent_data,
+        // values: values
+        // branchvalues:"remainder"
         count:"leaves",
         "leaf": {"opacity": 0.4},
         textposition: 'inside',
