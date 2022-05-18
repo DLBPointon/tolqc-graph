@@ -21,8 +21,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
   <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-core.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/8.9.0/js/anychart-sunburst.min.js"></script>
   <script src="js/pb_yield_time.js"></script>
   <script src="js/sunburst_plot.js"></script>
+  <script src="js/sunburst_v2.js"></script>
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
@@ -33,6 +36,7 @@
     window.onload=function(){
       dategrapher();
       species_sunburst()
+      species_sunburst_2()
   }
   </script>
 
@@ -113,6 +117,10 @@
 
   <div style="height: 800px;" id="species_sunburst_plot"></div>
 
+<div class="card-body">
+  <div class="card-header"><h1>TolQC - Species Hierarchy Sunburst Plot 2 </h1></div>
+
+  <div style="height: 800px;" id="species_sunburst_plot_2"></div>
 
 </div>
 
