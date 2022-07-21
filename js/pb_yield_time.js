@@ -67,7 +67,7 @@ function dategrapher() {
         data.forEach((item) => {
           //console.log(item["specimen"].split("")[0]);
 
-          if (item['pipeline'] === 'PacBio - HiFi') {
+          if (item['pipeline'] !== "PacBio - CLR") {
             // Makes three synced arrays
             // More efficient to make a JS Object but there are more changes coming.
 
