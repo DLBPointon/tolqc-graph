@@ -7,6 +7,8 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
+  <base href="/tolqc-graph/">
+
   <link rel="apple-touch-icon" href="icon.png">
   <!-- Place favicon.ico in the root directory -->
 
@@ -36,8 +38,8 @@
 <body>
   <script>
     window.onload=function(){
-      const pacbio_data = "data.json"
-      const main_data = "data_main.json"
+      const pacbio_data = "https://tolqc.cog.sanger.ac.uk/pacbio/data.json"
+      const main_data = "https://tolqc.cog.sanger.ac.uk/data.json"
       tolid_specify(pacbio_data);
       dategrapher(pacbio_data);
       species_sunburst(main_data);
@@ -85,7 +87,7 @@
   dropdown.selectedIndex = 0;
   let filteredData = []
 
-  const pacbio_data = "data.json"
+  const pacbio_data = "https://tolqc.cog.sanger.ac.uk/pacbio/data.json"
 
   $.getJSON(pacbio_data, function(data) {
     data.forEach((item) => {
