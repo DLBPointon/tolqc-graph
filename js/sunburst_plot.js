@@ -1,4 +1,4 @@
-function species_sunburst() {
+function species_sunburst(main_data) {
 
   var sb_plot = document.getElementById('species_sunburst_plot');
 
@@ -10,7 +10,7 @@ function species_sunburst() {
   var values = []
 
   // SPECIFY DATA.JSON FOR INPUT HERE
-  d3.json("data_main.json", function (data) {
+  d3.json(main_data, function (data) {
     for (var i = 0; i < data.length; i++) {
 
       if (!label_data.includes(data[i].phylum)) {

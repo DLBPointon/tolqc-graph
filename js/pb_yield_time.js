@@ -30,11 +30,7 @@ const master_dict = {
 'z': 'Archae'
 }
 
-
-function dategrapher() {
-    var TESTER = document.getElementById('dategraphLoc');
-
-
+function dategrapher(pacbio_data) {
     var alltot = document.getElementById('tolgraph1T');
     alltot = alltot.options[alltot.selectedIndex].value
     var two = document.getElementById('tolgraph1Y');
@@ -44,12 +40,12 @@ function dategrapher() {
     var four = document.getElementById('tolgraph1L');
     four = four.options[four.selectedIndex].value
 
-    $.getJSON("data.json", function(data) {
+    $.getJSON(pacbio_data, function(data) {
       var x = []
       var y = []
       var label = []
       var c = []
-
+      var key = []
       if (alltot === 'TRUE') {
         data.forEach((item) => {
           x.push(new Date(item['date']));
@@ -67,25 +63,33 @@ function dategrapher() {
         data.forEach((item) => {
           //console.log(item["specimen"].split("")[0]);
 
+          //item['well_label'] + ':' + item['run']
+
           if (item['pipeline'] !== "PacBio - CLR") {
             // Makes three synced arrays
             // More efficient to make a JS Object but there are more changes coming.
 
             // Below creates a unique "key" to sort data
-            if (!label.includes(item[four] + ':' + item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])) {
-              label.push(item[four] + ':' + item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
+            if (!key.includes(item['date'] + ':' + item['well_label'] + ':' + item['run'])) {
+
+              key.push(item['date'] + ':' + item['well_label'] + ':' + item['run'])
+              label.push(item['specimen'] + ':' + item['well_label'] + ':' + item['run'])
               x.push(new Date(item['date']))
               y.push(item[two])
+
               if (three === "Clade") {
                 c.push(master_dict[item["specimen"].split("")[0]])
               } else {
                 c.push(item[three])
               }
+
             } else {
-              var indx = label.indexOf(item[four] + ':' + item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group'])
+              var indx = key.indexOf(item['date'] + ':' + item['well_label'] + ':' + item['run'])
               var summed = y[indx] + item['sum']
+              var new_label = item['specimen'] + ':' + label[indx]
               // Below takes index, deletes item and replaces it with the summed variable.
               y.splice(indx, 1, summed)
+              label.splice(indx, 1, new_label)
             }
           }
         })

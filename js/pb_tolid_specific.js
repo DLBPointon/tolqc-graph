@@ -1,4 +1,4 @@
-function tolid_specify() {
+function tolid_specify(pacbio_data) {
   var TESTER = document.getElementById('tolid');
   var tolid_dd = document.getElementById('tolgraph0T')
   tolid = tolid_dd.options[tolid_dd.selectedIndex].value
@@ -8,16 +8,16 @@ function tolid_specify() {
     var three = 'pipeline'
     var four = 'specimen'
 
-    $.getJSON("data.json", function(data) {
+    $.getJSON(pacbio_data, function(data) {
       var x = []
       var y = []
       var label = []
       var c = []
-
+      var key = []
 
       if (tolid != 'True'){
         data.forEach((item) => {
-          var key = item[four] + ':' + item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group']
+          var key = item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group']
           if (item['specimen'] === tolid) {
             //console.log(item["specimen"].split("")[0]);
               // Makes three synced arrays
@@ -39,7 +39,7 @@ function tolid_specify() {
         })
       } else {
         data.forEach((item) => {
-          var key = item[four] + ':' + item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group']
+          var key = item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group']
           //console.log(item["specimen"].split("")[0]);
             // Makes three synced arrays
             // More efficient to make a JS Object but there are more changes coming.

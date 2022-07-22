@@ -1,7 +1,7 @@
-function species_sunburst_2() {
+function species_sunburst_2(main_data) {
 
   // SPECIFY DATA.JSON FOR INPUT HERE
-  d3.json("data_main.json", function (data) {
+  d3.json(main_data, function (data) {
 
     // MODIFY DATA TO INCLUDE KINGDOM, GENUS + 'sp.'
     const datas = data.map(v => Object.assign(v, {kingdom: 'Eukaryota'}))
