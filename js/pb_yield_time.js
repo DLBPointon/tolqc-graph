@@ -61,6 +61,8 @@ function dategrapher(pacbio_data) {
         })
       } else if (alltot === 'FALSE'){
         data.forEach((item) => {
+          var key_val = item['well_label'] + ':' + item['run'] + ':' + item['group']
+
           //console.log(item["specimen"].split("")[0]);
 
           //item['well_label'] + ':' + item['run']
@@ -70,9 +72,9 @@ function dategrapher(pacbio_data) {
             // More efficient to make a JS Object but there are more changes coming.
 
             // Below creates a unique "key" to sort data
-            if (!key.includes(item['date'] + ':' + item['well_label'] + ':' + item['run'])) {
+            if (!key.includes(key_val)) {
 
-              key.push(item['date'] + ':' + item['well_label'] + ':' + item['run'])
+              key.push(key_val)
               label.push(item['specimen'] + ':' + item['well_label'] + ':' + item['run'])
               x.push(new Date(item['date']))
               y.push(item[two])
@@ -84,12 +86,18 @@ function dategrapher(pacbio_data) {
               }
 
             } else {
-              var indx = key.indexOf(item['date'] + ':' + item['well_label'] + ':' + item['run'])
+              var indx = key.indexOf(key_val)
               var summed = y[indx] + item['sum']
               var new_label = item['specimen'] + ':' + label[indx]
               // Below takes index, deletes item and replaces it with the summed variable.
               y.splice(indx, 1, summed)
               label.splice(indx, 1, new_label)
+            }
+            if (item['specimen'] === 'fTraTra1' ||
+                item['specimen'] === 'mMelMel3' ||
+                item['specimen'] === 'fAciRut3' ||
+                item['specimen'] === 'fSalTru1' ) {
+              console.log(item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['sum'])
             }
           }
         })

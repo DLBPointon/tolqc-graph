@@ -1,5 +1,4 @@
 function tolid_specify(pacbio_data) {
-  var TESTER = document.getElementById('tolid');
   var tolid_dd = document.getElementById('tolgraph0T')
   tolid = tolid_dd.options[tolid_dd.selectedIndex].value
 
