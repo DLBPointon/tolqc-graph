@@ -1,11 +1,10 @@
 function tolid_specify(pacbio_data) {
-  var TESTER = document.getElementById('tolid');
   var tolid_dd = document.getElementById('tolgraph0T')
   tolid = tolid_dd.options[tolid_dd.selectedIndex].value
+  var detailed = document.getElementById('datadetailed');
+  detailed_data = detailed.options[detailed.selectedIndex].value
 
-    var alltot = 'FALSE'
     var two = 'sum'
-    var three = 'pipeline'
     var four = 'specimen'
 
     $.getJSON(pacbio_data, function(data) {
@@ -15,26 +14,33 @@ function tolid_specify(pacbio_data) {
       var c = []
       var key = []
 
-      if (tolid != 'True'){
+      if (detailed_data == "TRUE"){
         data.forEach((item) => {
           var key = item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group']
-          if (item['specimen'] === tolid) {
-            //console.log(item["specimen"].split("")[0]);
-              // Makes three synced arrays
-              // More efficient to make a JS Object but there are more changes coming.
+          //console.log(item["specimen"].split("")[0]);
+            // Makes three synced arrays
+            // More efficient to make a JS Object but there are more changes coming.
 
-              // Below creates a unique "key" to sort data
-              if (!label.includes(key)) {
-                label.push(key)
-                x.push(new Date(item['date']))
-                y.push(item[two])
-                c.push(item[three])
+            // Below creates a unique "key" to sort data
+            if (!label.includes(key)) {
+              label.push(key)
+              x.push(new Date(item['date']))
+              y.push(item[two])
+              if ( item['pipeline'].includes('_') ){
+                var model = item['pipeline'].split('_')[1]
               } else {
-                var indx = label.indexOf(key)
-                var summed = y[indx] + item['sum']
-                // Below takes index, deletes item and replaces it with the summed variable.
-                y.splice(indx, 1, summed)
+                var model = item['pipeline'].split(' - ')[1]
               }
+              if ( item["model"] == undefined ) {
+                c.push(model)
+              } else {
+                c.push(item["model"])
+              }
+            } else {
+              var indx = label.indexOf(key)
+              var summed = y[indx] + item['sum']
+              // Below takes index, deletes item and replaces it with the summed variable.
+              y.splice(indx, 1, summed)
             }
         })
       } else {
@@ -49,7 +55,16 @@ function tolid_specify(pacbio_data) {
               label.push(key)
               x.push(new Date(item['date']))
               y.push(item[two])
-              c.push(item[three])
+              if ( item['pipeline'].includes('_') ){
+                var model = item['type'].charAt(0).toUpperCase()+item['type'].slice(1) + '-' + item['pipeline'].split('_')[1]
+              } else {
+                var model = item['type'].charAt(0).toUpperCase()+item['type'].slice(1) + '-' + item['pipeline'].split(' - ')[1]
+              }
+              if ( item["model"] == undefined ) {
+                c.push(model + '- Durbin Project')
+              } else {
+                c.push(model + '-' + item["model"])
+              }
             } else {
               var indx = label.indexOf(key)
               var summed = y[indx] + item['sum']
@@ -58,7 +73,7 @@ function tolid_specify(pacbio_data) {
             }
         })
       }
-
+      console.log(c)
       var maxDate=new Date(Math.max.apply(null,x));
       var minDate=new Date(Math.min.apply(null,x));
 
@@ -87,15 +102,13 @@ function tolid_specify(pacbio_data) {
       var layout = {
           title: 'Time Series for Pacbio Yields',
           showlegend: true,
+          legend: {
+            x: 1,
+            y: 0.5
+          },
           xaxis: {
               title:'Run Date',
               rangeselector: { buttons: [
-                      {
-                          count: 1,
-                          label: '1 Week',
-                          step: 'week',
-                          stepmode: 'backward'
-                      },
                       {
                           count: 1,
                           label: '1 Month',
@@ -114,6 +127,12 @@ function tolid_specify(pacbio_data) {
                           step: 'year',
                           stepmode: 'backward'
                       },
+                      {
+                        count: 2,
+                        label: '2 Year',
+                        step: 'year',
+                        stepmode: 'backward'
+                      },
                       {step: 'all'}
                   ]},
               rangeslider: {
@@ -122,8 +141,8 @@ function tolid_specify(pacbio_data) {
               },
               type: 'date',
               // +/- 4 is purely for aesthetics
-              range: [new Date(minDate.setDate(minDate.getDate() - 4)),
-                      new Date(maxDate.setDate(maxDate.getDate() + 4))],
+              range: ["2019-09-20",
+                      new Date(maxDate.setDate(maxDate.getDate() + 10))],
               tickwidth: 1
           },
 
