@@ -55,7 +55,9 @@
   <div class="text-dark font-weight-bold h5 mb-0 align-items-center">
     <span>All Data, searchable by TolID</span>
   </div>
-  <div id="tolid"></div>
+  <div id="tolid" style="height: 600px;"></div>
+
+  <span><center>As a note, labels are: `{ToL-ID} : {WELL-ID} : {RUN-ID} : {GROUP}`, this creates a unique ID.</center></span>
 
   <div class="card-header d-flex justify-content-between align-items-center">
     <h6 class="text-primary font-weight-bold m-0"> Data selectors </h6>
@@ -64,6 +66,17 @@
         <input id='textInput' type="text" onchange="filter(pacbio_data)">
       <h8 class="text-primary"> Dropdown: </h8>
         <select id="tolgraph0T" onchange="tolid_specify(pacbio_data)"></select>
+  </div>
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h6 class="text-primary font-weight-bold m-0"> Select overview or detailed </h6>
+      <select id="datadetailed" onchange="tolid_specify(pacbio_data)">
+        <option value="TRUE">
+          Overview
+        </option>
+        <option style="font-size: 1px" value="FALSE" selected='selected'>
+          Detailed
+        </option>
+      </select>
   </div>
 
   <div class="card-header d-flex justify-content-between align-items-center">
@@ -110,7 +123,7 @@
     <span>All HiFi data, customizable</span>
   </div>
 
-  <div id="dategraphLoc"></div>
+  <div id="dategraphLoc" style="height: 600px;"></div>
 
     <div class="card-header d-flex justify-content-between align-items-center">
         <h6 class="text-primary font-weight-bold m-0"> Data selector </h6>

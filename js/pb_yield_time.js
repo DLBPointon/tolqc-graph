@@ -93,12 +93,6 @@ function dategrapher(pacbio_data) {
               y.splice(indx, 1, summed)
               label.splice(indx, 1, new_label)
             }
-            if (item['specimen'] === 'fTraTra1' ||
-                item['specimen'] === 'mMelMel3' ||
-                item['specimen'] === 'fAciRut3' ||
-                item['specimen'] === 'fSalTru1' ) {
-              console.log(item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['sum'])
-            }
           }
         })
       }
@@ -114,7 +108,7 @@ function dategrapher(pacbio_data) {
           type: 'scatter',
           mode: 'markers',
           x: x,
-          y:y,
+          y: y,
           text: label,
           transforms: [{
               type: 'groupby',
