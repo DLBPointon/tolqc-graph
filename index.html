@@ -37,10 +37,11 @@
     window.onload=function(){
       const pacbio_data = "https://tolqc.cog.sanger.ac.uk/pacbio/data.json"
       const main_data = "https://tolqc.cog.sanger.ac.uk/data.json"
+
       tolid_specify(pacbio_data);
       dategrapher(pacbio_data);
       species_sunburst(main_data);
-      species_sunburst_2(main_data)
+      species_sunburst_2(main_data);
       filter(pacbio_data)
     }
   </script>
