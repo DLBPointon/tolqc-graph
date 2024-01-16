@@ -16,7 +16,7 @@ function tolid_specify(pacbio_data) {
 
       if (detailed_data == "TRUE"){
         data.forEach((item) => {
-          var key = item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group']
+          var key = item[four] + ':' + item['well_label'] + ':' + item['movie'] + ':' + item['group']
           //console.log(item["specimen"].split("")[0]);
             // Makes three synced arrays
             // More efficient to make a JS Object but there are more changes coming.
@@ -45,7 +45,7 @@ function tolid_specify(pacbio_data) {
         })
       } else {
         data.forEach((item) => {
-          var key = item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['group']
+          var key = item[four] + ':' + item['well_label'] + ':' + item['movie'] + ':' + item['group']
           //console.log(item["specimen"].split("")[0]);
             // Makes three synced arrays
             // More efficient to make a JS Object but there are more changes coming.
