@@ -61,7 +61,7 @@ function dategrapher(pacbio_data) {
         })
       } else if (alltot === 'FALSE'){
         data.forEach((item) => {
-          var key_val = item['well_label'] + ':' + item['run'] + ':' + item['group']
+          var key_val = item['well_label'] + ':' + item['run'] + ':' + item['movie'] +':' + item['group']
 
           //console.log(item["specimen"].split("")[0]);
 
@@ -75,7 +75,7 @@ function dategrapher(pacbio_data) {
             if (!key.includes(key_val)) {
 
               key.push(key_val)
-              label.push(item['specimen'] + ':' + item['well_label'] + ':' + item['run'])
+              label.push(item['specimen'] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['movie'])
               x.push(new Date(item['date']))
               y.push(item[two])
 
@@ -100,9 +100,11 @@ function dategrapher(pacbio_data) {
       var maxDate=new Date(Math.max.apply(null,x));
       var minDate=new Date(Math.min.apply(null,x));
 
-      console.log("Colour array:  " + c.length)
-      console.log("X array:       " + x.length)
-      console.log("Y array:       " + y.length) // data points
+      if ( c.length === x.length & c.length === y.length ) {
+        console.log("TolID-Specific Graph: Colour array matches data arrays (x, y) == data is good")
+      } else {
+        console.log("TolID-Specific Graph: Colour array length does not match amount of data in x and y arrays == data is bad")
+      }
 
       var trace1 = {
           type: 'scatter',

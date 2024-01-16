@@ -16,7 +16,7 @@ function tolid_specify(pacbio_data) {
 
       if (detailed_data == "TRUE"){
         data.forEach((item) => {
-          var key = item[four] + ':' + item['well_label'] + ':' + item['movie'] + ':' + item['group']
+          var key = item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['movie'] + ':' + item['group']
           //console.log(item["specimen"].split("")[0]);
             // Makes three synced arrays
             // More efficient to make a JS Object but there are more changes coming.
@@ -45,7 +45,7 @@ function tolid_specify(pacbio_data) {
         })
       } else {
         data.forEach((item) => {
-          var key = item[four] + ':' + item['well_label'] + ':' + item['movie'] + ':' + item['group']
+          var key = item[four] + ':' + item['well_label'] + ':' + item['run'] + ':' + item['movie'] + ':' + item['group']
           //console.log(item["specimen"].split("")[0]);
             // Makes three synced arrays
             // More efficient to make a JS Object but there are more changes coming.
@@ -61,7 +61,7 @@ function tolid_specify(pacbio_data) {
                 var model = item['type'].charAt(0).toUpperCase()+item['type'].slice(1) + '-' + item['pipeline'].split(' - ')[1]
               }
               if ( item["model"] == undefined ) {
-                c.push(model + '- Durbin Project')
+                c.push(model + '- Durbin or Research Project')
               } else {
                 c.push(model + '-' + item["model"])
               }
@@ -77,9 +77,11 @@ function tolid_specify(pacbio_data) {
       var maxDate=new Date(Math.max.apply(null,x));
       var minDate=new Date(Math.min.apply(null,x));
 
-      //console.log("Colour array:  " + c.length)
-      //console.log("X array:       " + x.length)
-      //console.log("Y array:       " + y.length) // data points
+      if ( c.length === x.length & c.length === y.length ) {
+        console.log("TolID-Specific Graph: Colour array matches data arrays (x, y) == data is good")
+      } else {
+        console.log("TolID-Specific Graph: Colour array length does not match amount of data in x and y arrays == data is bad")
+      }
 
       document.getElementById("datacounted").innerText=x.length
 
