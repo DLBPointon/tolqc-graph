@@ -63,10 +63,6 @@ function dategrapher(pacbio_data) {
         data.forEach((item) => {
           var key_val = item['well_label'] + ':' + item['run'] + ':' + item['movie'] +':' + item['group']
 
-          //console.log(item["specimen"].split("")[0]);
-
-          //item['well_label'] + ':' + item['run']
-
           if (item['pipeline'] !== "PacBio - CLR") {
             // Makes three synced arrays
             // More efficient to make a JS Object but there are more changes coming.
