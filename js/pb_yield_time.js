@@ -97,9 +97,9 @@ function dategrapher(pacbio_data) {
       var minDate=new Date(Math.min.apply(null,x));
 
       if ( c.length === x.length & c.length === y.length ) {
-        console.log("TolID-Specific Graph: Colour array matches data arrays (x, y) == data is good")
+        console.log("Yield Against Time Graph: Colour array matches data arrays (x, y) == data is good")
       } else {
-        console.log("TolID-Specific Graph: Colour array length does not match amount of data in x and y arrays == data is bad")
+        console.log("Yield Against Time Graph: Colour array length does not match amount of data in x and y arrays == data is bad")
       }
 
       var trace1 = {
