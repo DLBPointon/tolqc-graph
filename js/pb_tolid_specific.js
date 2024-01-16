@@ -71,7 +71,6 @@ function tolid_specify(pacbio_data) {
             }
         })
       }
-      console.log(c)
       var maxDate=new Date(Math.max.apply(null,x));
       var minDate=new Date(Math.min.apply(null,x));
 
